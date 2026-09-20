@@ -1,0 +1,219 @@
+/* ============================================================
+   style.css - 自定义样式（补充 Tailwind 无法实现的部分）
+   深橄榄绿 + 浅粉 撞色系（参考图同款）
+   ============================================================ */
+
+/* ---------- 全局：平滑滚动 ---------- */
+html {
+    scroll-behavior: smooth;
+    /* 导航栏高度补偿：点击锚点时目标内容不被固定导航遮挡 */
+    scroll-padding-top: 5rem;
+}
+
+body {
+    /* 防止水平溢出（卡片放大动画时） */
+    overflow-x: hidden;
+}
+
+/* 手账点阵纹理：各板块分别铺设（板块有自己的底色，会盖住 body 层） */
+#home, #share {
+    background-image: radial-gradient(rgba(107, 123, 79, 0.09) 1px, transparent 1px);
+    background-size: 26px 26px;
+}
+#about, #contact {
+    background-image: radial-gradient(rgba(107, 123, 79, 0.07) 1px, transparent 1px);
+    background-size: 26px 26px;
+}
+
+/* ---------- 导航栏：滚动时阴影变化 ---------- */
+#navbar.scrolled {
+    box-shadow: 0 4px 20px rgba(107, 123, 79, 0.15);
+}
+
+/* ---------- 当前激活的导航链接高亮 ---------- */
+.nav-link.active,
+.mobile-link.active {
+    color: #5A6B40; /* 深橄榄绿 mint-dark */
+    font-weight: 600;
+}
+
+/* 导航链接下划线动画 */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: #E89A9F; /* 深粉 pink-dark */
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ---------- 图片占位符：当真实图片加载失败时显示渐变 + 图标 ---------- */
+.placeholder-img {
+    /* 默认显示深橄榄绿 + 浅粉撞色渐变背景，避免图片缺失时空白 */
+    background: linear-gradient(135deg, #6B7B4F 0%, #F7F5F0 50%, #F5B8BC 100%);
+    background-size: cover;
+    background-position: center;
+}
+
+/* 占位图上的虚线框提示（在真实图片缺失时更明显） */
+.placeholder-img:not([src])::before,
+.placeholder-img[data-fallback]::before {
+    content: '📷 图片占位';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8B7D6B;
+    font-size: 0.875rem;
+}
+
+/* ---------- 入场动画：滚动时淡入 ---------- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   手账风动效：漂浮 / 闪烁 / 背景漂移 / 流光 / 便签 hover
+   ============================================================ */
+
+/* 头像上下漂浮 */
+@keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+}
+.animate-float {
+    animation: float-y 5s ease-in-out infinite;
+    will-change: transform;
+}
+/* hi 贴纸漂浮（节奏稍快、幅度稍小） */
+.animate-float-slow {
+    animation: float-y 3.6s ease-in-out infinite;
+}
+
+/* Hero 背景色块缓慢漂移 */
+@keyframes blob-drift-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(36px, 28px) scale(1.12); }
+}
+@keyframes blob-drift-2 {
+    0%, 100% { transform: translate(0, 0) scale(1.05); }
+    50%      { transform: translate(-36px, -24px) scale(0.95); }
+}
+.blob {
+    will-change: transform;
+}
+.blob-1 {
+    animation: blob-drift-1 14s ease-in-out infinite;
+}
+.blob-2 {
+    animation: blob-drift-2 18s ease-in-out infinite;
+}
+
+/* 小星星闪烁（旋转 + 缩放 + 透明度，延迟在 HTML 内联设置） */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.7) rotate(0deg); }
+    50%      { opacity: 1;   transform: scale(1.15) rotate(25deg); }
+}
+.sparkle {
+    animation: twinkle 2.8s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+/* Hero 名字渐变流光 */
+@keyframes text-shimmer {
+    to { background-position: 200% center; }
+}
+.text-shimmer {
+    background-size: 200% auto;
+    animation: text-shimmer 4s linear infinite;
+}
+
+/* 教育经历便签卡片：hover 回正、上浮、加深阴影 */
+.note-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transform-origin: center center;
+}
+.note-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 0 14px 30px rgba(107, 123, 79, 0.18);
+}
+
+/* Hero 拍立得照片：hover 回正轻微放大 */
+.rotate-hover:hover {
+    transform: rotate(0deg) scale(1.03);
+}
+
+/* 中文手写体的渲染微调 */
+.font-hand-cn {
+    font-weight: 400;
+    letter-spacing: 0.04em;
+}
+
+/* 手写体英文的平滑回退 */
+.font-hand {
+    letter-spacing: 0.01em;
+}
+
+/* ---------- 卡片 hover 时的过渡（Tailwind 已处理，此处补充细节） ---------- */
+article.group {
+    will-change: transform;
+}
+
+/* ---------- 时间轴：移动端时圆点位置修正 ---------- */
+@media (max-width: 639px) {
+    /* 移动端时间轴卡片左侧留出圆点空间 */
+    #about .relative > div {
+        padding-left: 0;
+    }
+}
+
+/* ---------- 自定义滚动条（仅 Webkit 内核浏览器） ---------- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #F7F5F0;
+}
+::-webkit-scrollbar-thumb {
+    background: #6B7B4F;
+    border-radius: 5px;
+    border: 2px solid #F7F5F0;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #5A6B40;
+}
+
+/* ---------- 选中文本颜色 ---------- */
+::selection {
+    background: #F5B8BC;
+    color: #5A4E3C;
+}
+
+/* ---------- 减少动画：尊重用户无障碍偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
