@@ -1,0 +1,127 @@
+/* ============================================================
+   style.css - 自定义样式（补充 Tailwind 无法实现的部分）
+   深橄榄绿 + 浅粉 撞色系（参考图同款）
+   ============================================================ */
+
+/* ---------- 全局：平滑滚动 ---------- */
+html {
+    scroll-behavior: smooth;
+    /* 导航栏高度补偿：点击锚点时目标内容不被固定导航遮挡 */
+    scroll-padding-top: 5rem;
+}
+
+body {
+    /* 防止水平溢出（卡片放大动画时） */
+    overflow-x: hidden;
+}
+
+/* ---------- 导航栏：滚动时阴影变化 ---------- */
+#navbar.scrolled {
+    box-shadow: 0 4px 20px rgba(107, 123, 79, 0.15);
+}
+
+/* ---------- 当前激活的导航链接高亮 ---------- */
+.nav-link.active,
+.mobile-link.active {
+    color: #5A6B40; /* 深橄榄绿 mint-dark */
+    font-weight: 600;
+}
+
+/* 导航链接下划线动画 */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: #E89A9F; /* 深粉 pink-dark */
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ---------- 图片占位符：当真实图片加载失败时显示渐变 + 图标 ---------- */
+.placeholder-img {
+    /* 默认显示深橄榄绿 + 浅粉撞色渐变背景，避免图片缺失时空白 */
+    background: linear-gradient(135deg, #6B7B4F 0%, #F7F5F0 50%, #F5B8BC 100%);
+    background-size: cover;
+    background-position: center;
+}
+
+/* 占位图上的虚线框提示（在真实图片缺失时更明显） */
+.placeholder-img:not([src])::before,
+.placeholder-img[data-fallback]::before {
+    content: '📷 图片占位';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8B7D6B;
+    font-size: 0.875rem;
+}
+
+/* ---------- 入场动画：滚动时淡入 ---------- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- 卡片 hover 时的过渡（Tailwind 已处理，此处补充细节） ---------- */
+article.group {
+    will-change: transform;
+}
+
+/* ---------- 时间轴：移动端时圆点位置修正 ---------- */
+@media (max-width: 639px) {
+    /* 移动端时间轴卡片左侧留出圆点空间 */
+    #about .relative > div {
+        padding-left: 0;
+    }
+}
+
+/* ---------- 自定义滚动条（仅 Webkit 内核浏览器） ---------- */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #F7F5F0;
+}
+::-webkit-scrollbar-thumb {
+    background: #6B7B4F;
+    border-radius: 5px;
+    border: 2px solid #F7F5F0;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #5A6B40;
+}
+
+/* ---------- 选中文本颜色 ---------- */
+::selection {
+    background: #F5B8BC;
+    color: #5A4E3C;
+}
+
+/* ---------- 减少动画：尊重用户无障碍偏好 ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

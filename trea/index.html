@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郑佳慧 | 个人作品集</title>
+    <meta name="description" content="郑佳慧的个人作品集 - 希望每天都是好天气">
+
+    <!-- Tailwind CSS CDN（无需构建工具，直接引入即可） -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 自定义 Tailwind 配置：深橄榄绿 + 浅粉 撞色系 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // 主色调：深橄榄绿 + 浅粉 撞色系（参考图同款）
+                        mint: '#6B7B4F',          // 深橄榄绿（主色，原 mint 类自动生效）
+                        'mint-dark': '#5A6B40',   // 更深橄榄绿（强调/hover）
+                        'mint-light': '#E4E6DA',  // 极浅橄榄绿（浅绿背景）
+                        cream: '#F7F5F0',         // 奶白（背景，比纯白稍暖）
+                        pink: '#F5B8BC',          // 浅粉（撞色辅助，原 pink 类自动生效）
+                        'pink-dark': '#E89A9F',   // 深粉（hover）
+                        'pink-light': '#FCE4E6',  // 极浅粉（粉色背景）
+                        ink: '#5A4E3C',           // 主文字色（暖棕，与绿/粉都搭）
+                        'ink-soft': '#8B7D6B',    // 次要文字色（浅棕）
+                    },
+                    fontFamily: {
+                        sans: ['"PingFang SC"', '"Microsoft YaHei"', 'system-ui', 'sans-serif'],
+                    },
+                    keyframes: {
+                        // 入场淡入上浮动效
+                        'fade-up': {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                    animation: {
+                        'fade-up': 'fade-up 0.8s ease-out forwards',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-cream text-ink font-sans antialiased">
+
+    <!-- ============ 顶部导航栏 ============ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-md border-b border-mint/60 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo / 姓名 -->
+                <a href="#home" class="text-xl font-bold text-ink hover:text-mint-dark transition-colors duration-300">
+                    <span class="text-2xl text-mint-dark">❀</span> 郑佳慧
+                </a>
+
+                <!-- 桌面端导航链接 -->
+                <ul class="hidden md:flex items-center space-x-8">
+                    <li><a href="#home" class="nav-link text-ink-soft hover:text-mint-dark font-medium transition-colors duration-300">首页</a></li>
+                    <li><a href="#about" class="nav-link text-ink-soft hover:text-mint-dark font-medium transition-colors duration-300">关于我</a></li>
+                    <li><a href="#share" class="nav-link text-ink-soft hover:text-mint-dark font-medium transition-colors duration-300">daily share</a></li>
+                    <li><a href="#contact" class="nav-link text-ink-soft hover:text-mint-dark font-medium transition-colors duration-300">联系我</a></li>
+                </ul>
+
+                <!-- 移动端汉堡按钮 -->
+                <button id="menu-toggle" class="md:hidden text-ink-soft hover:text-mint-dark focus:outline-none" aria-label="打开菜单">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- 移动端下拉菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream border-t border-mint/60">
+            <ul class="px-4 py-4 space-y-3">
+                <li><a href="#home" class="mobile-link block py-2 text-ink-soft hover:text-mint-dark font-medium">首页</a></li>
+                <li><a href="#about" class="mobile-link block py-2 text-ink-soft hover:text-mint-dark font-medium">关于我</a></li>
+                <li><a href="#share" class="mobile-link block py-2 text-ink-soft hover:text-mint-dark font-medium">daily share</a></li>
+                <li><a href="#contact" class="mobile-link block py-2 text-ink-soft hover:text-mint-dark font-medium">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============ 首页 Hero 区 ============ -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
+        <!-- 背景装饰圆 -->
+        <div class="absolute top-20 -left-20 w-72 h-72 bg-mint/40 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 -right-20 w-96 h-96 bg-pink/40 rounded-full blur-3xl"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+                <!-- 头像 -->
+                <div class="flex-shrink-0 animate-fade-up">
+                    <div class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full p-2 bg-gradient-to-br from-mint to-pink shadow-xl">
+                        <!-- TODO: 把头像图片放到 images 文件夹，命名为 avatar.jpg -->
+                        <img src="images/avatar.jpg"
+                             alt="头像"
+                             class="placeholder-img w-full h-full object-cover rounded-full border-4 border-cream">
+                    </div>
+                </div>
+
+                <!-- 自我介绍 -->
+                <div class="flex-1 text-center md:text-left animate-fade-up" style="animation-delay:0.2s">
+                    <p class="text-mint-dark font-medium text-lg mb-2">你好，欢迎来到我的小世界 👋</p>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-ink mb-4">
+                        我是 <span class="bg-gradient-to-r from-mint-dark to-pink-dark bg-clip-text text-transparent">郑佳慧</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-ink-soft mb-8 max-w-2xl mx-auto md:mx-0">
+                        希望每天都是好天气
+                    </p>
+
+                    <!-- 两个按钮 -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#contact"
+                           class="px-8 py-3 bg-mint-dark text-white font-medium rounded-full hover:bg-ink hover:scale-105 transition-all duration-300 shadow-lg shadow-mint-dark/30">
+                            联系我
+                        </a>
+                        <button id="download-resume"
+                                class="px-8 py-3 bg-pink text-ink font-medium rounded-full hover:bg-pink-dark hover:text-white hover:scale-105 transition-all duration-300 shadow-lg shadow-pink/40">
+                            下载简历 PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 向下滚动提示 -->
+        <a href="#about" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-ink-soft hover:text-mint-dark transition-colors animate-bounce hidden sm:block">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </a>
+    </section>
+
+    <!-- ============ 关于我 ============ -->
+    <section id="about" class="py-20 bg-mint-light">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 标题 -->
+            <div class="text-center mb-14">
+                <h2 class="text-3xl sm:text-4xl font-bold text-ink mb-3">关于我</h2>
+                <div class="w-20 h-1 bg-pink-dark mx-auto rounded-full"></div>
+            </div>
+
+            <!-- 个人简介 -->
+            <div class="bg-white/70 rounded-2xl p-6 sm:p-10 shadow-sm border border-mint/50 mb-14">
+                <h3 class="text-2xl font-semibold text-ink mb-4 flex items-center">
+                    <span class="text-mint-dark mr-2">✦</span> 个人简介
+                </h3>
+                <p class="text-ink-soft leading-relaxed text-base sm:text-lg">
+                    2006年出生，一个常感快乐，偶感焦虑，时而踟蹰又向前的白羊座广西女孩。喜欢看书但没有看过很多书，喜欢骑车的时候听音乐但不是很会骑车也没有听过很多音乐，喜欢看演出但其实最喜欢看喜欢了很久的小明星，还和其他人一样喜欢上网，吃饭和睡觉。
+                </p>
+                <p class="text-ink-soft leading-relaxed text-base sm:text-lg mt-4">
+                    “我别无所求，只想被阳光晒透。”
+                </p>
+            </div>
+
+            <!-- 教育经历时间轴 -->
+            <h3 class="text-2xl font-semibold text-ink mb-8 flex items-center">
+                <span class="text-pink-dark mr-2">✦</span> 教育经历
+            </h3>
+
+            <div class="relative">
+                <!-- 时间轴中线 -->
+                <div class="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-mint-dark/40 sm:-translate-x-1/2"></div>
+
+                <!-- 经历 1 -->
+                <div class="relative mb-10 sm:mb-12">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div class="sm:w-1/2 sm:pr-12 sm:text-right pl-12 sm:pl-0">
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-mint/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-semibold text-ink mt-1">湖南大学 · 本科</h4>
+                                <p class="text-ink-soft text-sm mt-1">统计学</p>
+                            </div>
+                        </div>
+                        <!-- 时间轴圆点 -->
+                        <div class="absolute left-4 sm:left-1/2 top-6 w-4 h-4 -translate-x-1/2 bg-pink-dark border-4 border-cream rounded-full z-10"></div>
+                        <div class="hidden sm:block sm:w-1/2"></div>
+                    </div>
+                </div>
+
+                <!-- 经历 2 -->
+                <div class="relative mb-10 sm:mb-12">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div class="hidden sm:block sm:w-1/2"></div>
+                        <div class="absolute left-4 sm:left-1/2 top-6 w-4 h-4 -translate-x-1/2 bg-mint-dark border-4 border-cream rounded-full z-10"></div>
+                        <div class="sm:w-1/2 sm:pl-12 pl-12 sm:pl-12">
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-pink/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-semibold text-ink mt-1">高中</h4>
+                                <p class="text-ink-soft text-sm mt-2">
+                                    一段快乐而令人怀念的时光
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 经历 3 -->
+                <div class="relative">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <div class="sm:w-1/2 sm:pr-12 sm:text-right pl-12 sm:pl-0">
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-mint/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                                <h4 class="text-lg font-semibold text-ink mt-1">初中</h4>
+                                <p class="text-ink-soft text-sm mt-2">
+                                    一段不想回忆但是认识了好朋友的日子
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute left-4 sm:left-1/2 top-6 w-4 h-4 -translate-x-1/2 bg-pink-dark border-4 border-cream rounded-full z-10"></div>
+                        <div class="hidden sm:block sm:w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ daily share ============ -->
+    <section id="share" class="py-20 bg-cream">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 标题 -->
+            <div class="text-center mb-14">
+                <h2 class="text-3xl sm:text-4xl font-bold text-ink mb-3">daily share</h2>
+                <p class="text-ink-soft mt-2">日常分享 · 喜欢的瞬间</p>
+                <div class="w-20 h-1 bg-mint-dark mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- 图片画廊卡片网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+                <!-- 卡片 1 -->
+                <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-mint/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="overflow-hidden h-56 sm:h-60 relative bg-mint-light">
+                        <!-- 把图片放到 images 文件夹，命名为 share1.jpg -->
+                        <img src="images/share1.jpg" alt="喜欢太阳"
+                             class="placeholder-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-3 left-3 px-3 py-1 bg-pink/90 text-ink text-xs font-medium rounded-full">照片</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-ink mb-2">喜欢太阳</h3>
+                        <p class="text-ink-soft text-sm leading-relaxed">
+                            别管，就是喜欢
+                        </p>
+                    </div>
+                </article>
+
+                <!-- 卡片 2 -->
+                <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-pink/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="overflow-hidden h-56 sm:h-60 relative bg-pink-light">
+                        <!-- 命名为 share2.jpg -->
+                        <img src="images/share2.jpg" alt="喜欢公园"
+                             class="placeholder-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-3 left-3 px-3 py-1 bg-mint/90 text-cream text-xs font-medium rounded-full">照片</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-ink mb-2">喜欢公园</h3>
+                        <p class="text-ink-soft text-sm leading-relaxed">
+                            人类需要氧气
+                        </p>
+                    </div>
+                </article>
+
+                <!-- 卡片 3 -->
+                <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-mint/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="overflow-hidden h-56 sm:h-60 relative bg-mint-light">
+                        <!-- 命名为 share3.jpg -->
+                        <img src="images/share3.jpg" alt="喜欢树和绿色"
+                             class="placeholder-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-3 left-3 px-3 py-1 bg-pink/90 text-ink text-xs font-medium rounded-full">照片</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-ink mb-2">喜欢树和绿色</h3>
+                        <p class="text-ink-soft text-sm leading-relaxed">
+                            生命是一棵长满可能的树
+                        </p>
+                    </div>
+                </article>
+
+                <!-- 卡片 4 -->
+                <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-pink/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="overflow-hidden h-56 sm:h-60 relative bg-pink-light">
+                        <!-- 命名为 share4.jpg -->
+                        <img src="images/share4.jpg" alt="喜欢抬头看傍晚的天"
+                             class="placeholder-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-3 left-3 px-3 py-1 bg-mint/90 text-cream text-xs font-medium rounded-full">照片</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-ink mb-2">喜欢抬头看傍晚的天</h3>
+                        <p class="text-ink-soft text-sm leading-relaxed">
+                            小镇夜色
+                        </p>
+                    </div>
+                </article>
+
+                <!-- 卡片 5 -->
+                <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-mint/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="overflow-hidden h-56 sm:h-60 relative bg-mint-light">
+                        <!-- 命名为 share5.jpg -->
+                        <img src="images/share5.jpg" alt="喜欢抬头看晴朗的天"
+                             class="placeholder-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-3 left-3 px-3 py-1 bg-pink/90 text-ink text-xs font-medium rounded-full">照片</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-ink mb-2">喜欢抬头看晴朗的天</h3>
+                        <p class="text-ink-soft text-sm leading-relaxed">
+                            好像十八岁的某一天
+                        </p>
+                    </div>
+                </article>
+
+                <!-- 卡片 6 -->
+                <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-pink/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="overflow-hidden h-56 sm:h-60 relative bg-pink-light">
+                        <!-- 命名为 share6.jpg -->
+                        <img src="images/share6.jpg" alt="喜欢花"
+                             class="placeholder-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <span class="absolute top-3 left-3 px-3 py-1 bg-mint/90 text-cream text-xs font-medium rounded-full">照片</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-ink mb-2">喜欢花！</h3>
+                        <p class="text-ink-soft text-sm leading-relaxed">
+                            和郁金香
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 联系我 ============ -->
+    <section id="contact" class="py-20 bg-mint-light">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 标题 -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-ink mb-3">联系我</h2>
+                <p class="text-ink-soft mt-2">很高兴认识你，欢迎随时找我聊聊 ✉</p>
+                <div class="w-20 h-1 bg-pink-dark mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- 联系卡片（仅邮箱） -->
+            <div class="bg-white rounded-2xl p-8 sm:p-10 shadow-sm border border-mint/50">
+                <!-- 邮箱 -->
+                <a href="mailto:jiahuizheng2025@163.com"
+                   class="flex items-center gap-4 p-4 rounded-xl hover:bg-mint-light transition-colors duration-300 group">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full bg-mint text-cream group-hover:bg-mint-dark transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-ink-soft">邮箱</p>
+                        <p class="text-ink font-medium">jiahuizheng2025@163.com</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ 页脚 ============ -->
+    <footer class="bg-ink py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <!-- Logo / 署名 -->
+                <a href="#home" class="text-lg font-bold text-cream hover:text-pink transition-colors">
+                    <span class="text-pink">❀</span> @little Zoe
+                </a>
+
+                <!-- 返回顶部按钮 -->
+                <a href="#home" class="flex items-center gap-2 text-cream/70 hover:text-pink transition-colors text-sm">
+                    返回顶部
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="border-t border-cream/10 mt-6 pt-6 text-center">
+                <p class="text-cream/60 text-sm">
+                    © 2026 @little Zoe · 用 ❤ 制作
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 主脚本 -->
+    <script src="js/main.js"></script>
+</body>
+</html>
